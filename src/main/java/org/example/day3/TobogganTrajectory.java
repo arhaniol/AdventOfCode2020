@@ -9,19 +9,56 @@ import java.util.stream.Stream;
 
 public class TobogganTrajectory {
 
+    private final List<String> forest;
 
+    public TobogganTrajectory(String file) {
+        forest = getInput( file);
+        if (forest == null) {
+            throw new IllegalArgumentException("No data");
+        }
+    }
+
+    public long getPart1() {
+        return countTree(3, 1);
+    }
+
+    public long getPart2() {
+        return countTree(1, 1) *
+                countTree(3, 1) *
+                countTree(5, 1) *
+                countTree(7, 1) *
+                countTree(1, 2);
+    }
+
+    private long countTree(int right, int down) {
+        int result = 0;
+        int pos = right;
+        for (int i = down; i < forest.size(); i += down) {
+            String row = forest.get(i);
+            if ((pos) >= row.length()) {
+                pos = pos % row.length();
+            }
+            if (row.charAt(pos) == '#') {
+                result++;
+            }
+            pos += right;
+        }
+        return result;
+    }
 
     /**
      * Function collect data from file
-     *
+     * @param file name of file to read
      * @return List of Integer data
      */
-    private List<String> getInput() {
+    private List<String> getInput(String file) {
         String arr,
-                path = "C:\\Users\\michal.musial\\IdeaProjects\\AdventOfCode2020\\src\\main\\java\\org\\example\\day2\\";
-        String file = "input.txt";
+                mainPath = Paths.get("").toAbsolutePath().toString(),
+                javaPath = "\\src\\main\\java",
+                packPath = Paths.get(this.getClass().getPackage().getName()).toString().replace('.', '\\');
+
         try {
-            arr = new String(Files.readAllBytes(Paths.get(path + file)));
+            arr = new String(Files.readAllBytes(Paths.get(mainPath, javaPath, packPath, file)));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
