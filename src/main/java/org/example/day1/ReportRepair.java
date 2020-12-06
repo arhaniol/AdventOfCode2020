@@ -13,17 +13,26 @@ public class ReportRepair {
      * find that entries that sum to 2020 and then multiply those numbers together.
      */
 
-    List<Integer> input;
+    private final List<Integer> input;
+    private int part1 = 0;
+    private int part2 = 0;
+
+    public int getPart1() {
+        return part1;
+    }
+
+    public int getPart2() {
+        return part2;
+    }
 
     public ReportRepair() {
-        input = getInput("input.txt");
+        input = getInput();
         if (input == null) {
             throw new NullPointerException("No data");
         }
-
     }
 
-    public int findMultiplicationOfSum() {
+    public void findMultiplicationOfSum() {
         Collections.sort(input);
         for (int i = 0; i < input.size() - 2; i++) {
             int a1 = input.get(i);
@@ -33,6 +42,9 @@ public class ReportRepair {
                 if (sum1 > 2020) {
                     break;
                 }
+                if(sum1==2020){
+                    part1=a1*a2;
+                }
                 for (int k = j + 1; k < input.size(); k++) {
                     int a3 = input.get(k);
                     int sum2 = sum1 + a3;
@@ -40,24 +52,27 @@ public class ReportRepair {
                         break;
                     }
                     if (sum2 == 2020) {
-                        return a1 * a2 * a3;
+                        part2= a1 * a2 * a3;
                     }
                 }
             }
         }
-        return -1;
     }
 
     /**
      * Function collect data from file
-     * @param file with data
+     *
      * @return List of Integer data
      */
-    private List<Integer> getInput(String file) {
+    private List<Integer> getInput() {
         String arr,
-                path = "C:\\Users\\michal.musial\\IdeaProjects\\AdventOfCode2020\\src\\main\\java\\org\\example\\day1\\";
+                mainPath = Paths.get("").toAbsolutePath().toString(),
+                javaPath = "\\src\\main\\java",
+                packPath = Paths.get(this.getClass().getPackage().getName()).toString().replace('.', '\\'),
+                file = "input.txt";
+
         try {
-            arr = new String(Files.readAllBytes(Paths.get(path + file)));
+            arr = new String(Files.readAllBytes(Paths.get(mainPath, javaPath, packPath, file)));
         } catch (IOException e) {
             e.printStackTrace();
             return null;

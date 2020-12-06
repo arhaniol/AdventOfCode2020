@@ -10,14 +10,24 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PasswordPhilosophy {
-    List<String> passwords;
+    private final List<String> passwords;
+    private int part1=0;
+    private int part2=0;
+
+    public int getPart1() {
+        return part1;
+    }
+
+    public int getPart2() {
+        return part2;
+    }
 
     public PasswordPhilosophy() {
         passwords = getInput();
     }
 
-    public int countValidPassword() {
-        int result = 0;
+    public void countValidPassword() {
+
         for (String password : passwords) {
             Pattern pattern = Pattern.compile("(\\d+)-(\\d+) ([a-z]): (\\w+)");
             Matcher matcher = pattern.matcher(password);
@@ -27,12 +37,15 @@ public class PasswordPhilosophy {
                 char s = matcher.group(3).charAt(0);
                 String text = matcher.group(4);
 
+                if (part1(min, max, s, text)) {
+                    part1++;
+                }
+
                 if (part2(min, max, s, text)) {
-                    result++;
+                    part2++;
                 }
             }
         }
-        return result;
     }
 
     public boolean part1(int min, int max, char s, String password) {
@@ -51,24 +64,22 @@ public class PasswordPhilosophy {
         }
         if(password.charAt(pos1-1)==s && password.charAt(pos2-1)!=s){
             return true;
-        }else if(password.charAt(pos1-1)!=s && password.charAt(pos2-1)==s){
-            return true;
-        }else {
-            return false;
-        }
+        }else return password.charAt(pos1 - 1) != s && password.charAt(pos2 - 1) == s;
     }
 
     /**
      * Function collect data from file
-     *
      * @return List of Integer data
      */
     private List<String> getInput() {
         String arr,
-                path = "C:\\Users\\michal.musial\\IdeaProjects\\AdventOfCode2020\\src\\main\\java\\org\\example\\day2\\";
-        String file = "input.txt";
+                mainPath = Paths.get("").toAbsolutePath().toString(),
+                javaPath = "\\src\\main\\java",
+                packPath = Paths.get(this.getClass().getPackage().getName()).toString().replace('.', '\\'),
+                file = "input.txt";
+
         try {
-            arr = new String(Files.readAllBytes(Paths.get(path + file)));
+            arr = new String(Files.readAllBytes(Paths.get(mainPath, javaPath, packPath, file)));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -76,5 +87,4 @@ public class PasswordPhilosophy {
 
         return Stream.of(arr.split("\r\n")).collect(Collectors.toList());
     }
-
 }
