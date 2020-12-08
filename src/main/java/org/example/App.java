@@ -30,7 +30,7 @@ public class App {
         PassportProcessing passportProcessing = new PassportProcessing("input.txt");
 
         System.out.println("* Part1: " + passportProcessing.getPart1());
-//        System.out.println("* Part2: " + passportProcessing.getPart2());
+        System.out.println("* Part2: " + passportProcessing.getPart2());
     }
 
 }
