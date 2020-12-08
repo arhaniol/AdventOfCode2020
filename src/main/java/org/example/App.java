@@ -5,6 +5,7 @@ import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
 import org.example.day5.BinaryBoarding;
+import org.example.day6.CustomCustoms;
 
 public class App {
     public static void main(String[] args) {
@@ -38,6 +39,12 @@ public class App {
 
         System.out.println("* Part1: " + binaryBoarding.getPart1());
         System.out.println("* Part2: " + binaryBoarding.getPart2());
+
+        System.out.println("Day 6:");
+        CustomCustoms customCustoms = new CustomCustoms("input.txt");
+
+        System.out.println("* Part1: " + customCustoms.getPart1());
+        System.out.println("* Part2: " + customCustoms.getPart2());
     }
 
 }
