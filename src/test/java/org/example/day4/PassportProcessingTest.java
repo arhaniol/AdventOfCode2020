@@ -15,6 +15,6 @@ class PassportProcessingTest {
     @Test
     public void getPart2Test(){
         PassportProcessing passportProcessing=new PassportProcessing("inputTest.txt");
-        assertEquals(4,passportProcessing.getPart2());
+        assertEquals(2,passportProcessing.getPart2());
     }
 }
