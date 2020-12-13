@@ -12,4 +12,9 @@ class HandyHaversacksTest {
         assertEquals(4,handyHaversacks.getPart1());
     }
 
+    @Test
+    public void getPart2Test(){
+        HandyHaversacks handyHaversacks=new HandyHaversacks("inputTest.txt");
+        assertEquals(32,handyHaversacks.getPart2());
+    }
 }
