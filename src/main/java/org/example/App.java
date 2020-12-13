@@ -50,8 +50,8 @@ public class App {
         System.out.println("Day 7:");
         HandyHaversacks handyHaversacks = new HandyHaversacks("input.txt");
 
-//        System.out.println("* Part1: " + handyHaversacks.getPart1());
-//        System.out.println("* Part2: " + handyHaversacks.getPart2());
+        System.out.println("* Part1: " + handyHaversacks.getPart1());
+        System.out.println("* Part2: " + handyHaversacks.getPart2());
     }
 
 }
