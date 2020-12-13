@@ -4,8 +4,9 @@ package org.example.day7;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -19,22 +20,6 @@ public class HandyHaversacks {
         tree = new BinaryTree();
         parseInput(file);
 
-//        Bag blu = new Bag("blue", null);
-//        Bag black = new Bag("black", null);
-//
-//        List<Bag> bagList = new ArrayList<>();
-//        bagList.add(blu);
-//        bagList.add(black);
-//
-//        Bag plum = new Bag("plum", bagList);
-//        Bag olive = new Bag("olive", bagList);
-//
-//        bagList.clear();
-//        bagList.add(plum);
-//        bagList.add(olive);
-//
-//        Bag gold = new Bag("gold", bagList);
-
     }
 
     private void parseInput(String file) {
@@ -47,17 +32,19 @@ public class HandyHaversacks {
         for (String txt : input) {
             matcher = pattern.matcher(txt);
             if (matcher.matches()) {
-                Bag bag = new Bag();
                 String root = matcher.group(1);
-                bag.setColor(root);
                 String other = matcher.group(2);
-                bag.setContent(getContent(other));
-                tree.add(bag);
+                Map<String, Integer> map = getContent(other);
+
+                Bag bag = new Bag();
+                bag.setName(root);
+                bag.setChildren(map);
+                tree.addNode(bag);
             }
         }
     }
 
-    private List<Bag> getContent(String text) {
+    private Map<String, Integer> getContent(String text) {
         if (text.length() < 1) {
             return null;
         }
@@ -72,18 +59,16 @@ public class HandyHaversacks {
             String[] colors = matcher.group(1).split(", ");
             Pattern patternBag = Pattern.compile("(\\d) (.+) bags*");
             if (colors.length > 0) {
-                List<Bag> bags = new ArrayList<>();
+                Map<String, Integer> map = new HashMap<>();
                 for (String s : colors) {
                     Matcher matcherBag = patternBag.matcher(s);
                     if (matcherBag.matches()) {
                         int capacity = Integer.parseInt(matcherBag.group(1));
-                        Bag bag = new Bag();
                         String color = matcherBag.group(2);
-                        bag.setColor(color);
-                        bags.add(bag);
+                        map.put(color, capacity);
                     }
                 }
-                return bags;
+                return map;
             } else {
                 return null;
             }
@@ -113,6 +98,10 @@ public class HandyHaversacks {
     }
 
     public int getPart1() {
-        return 0;
+        return tree.getAllParents("shiny gold").size();
+    }
+
+    public int getPart2() {
+        return tree.getAllChildren("shiny gold") - 1;
     }
 }
