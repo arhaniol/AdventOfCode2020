@@ -8,6 +8,7 @@ import org.example.day5.BinaryBoarding;
 import org.example.day6.CustomCustoms;
 import org.example.day7.HandyHaversacks;
 import org.example.day8.HandheldHalting;
+import org.example.day9.EncodingError;
 
 public class App {
     public static void main(String[] args) {
@@ -59,6 +60,12 @@ public class App {
 
         System.out.println("* Part1: " + handheldHalting.getPart1());
         System.out.println("* Part2: " + handheldHalting.getPart2());
+
+        System.out.println("Day 9:");
+        EncodingError encodingError=new EncodingError("input.txt");
+
+        System.out.println("* Part1: " + encodingError.getPart1(25));
+        System.out.println("* Part2: " + encodingError.getPart2());
     }
 
 }
