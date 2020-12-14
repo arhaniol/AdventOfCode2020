@@ -7,6 +7,7 @@ import org.example.day4.PassportProcessing;
 import org.example.day5.BinaryBoarding;
 import org.example.day6.CustomCustoms;
 import org.example.day7.HandyHaversacks;
+import org.example.day8.HandheldHalting;
 
 public class App {
     public static void main(String[] args) {
@@ -52,6 +53,12 @@ public class App {
 
         System.out.println("* Part1: " + handyHaversacks.getPart1());
         System.out.println("* Part2: " + handyHaversacks.getPart2());
+
+        System.out.println("Day 8:");
+        HandheldHalting handheldHalting = new HandheldHalting("input.txt");
+
+        System.out.println("* Part1: " + handheldHalting.getPart1());
+        System.out.println("* Part2: " + handheldHalting.getPart2());
     }
 
 }
