@@ -65,7 +65,7 @@ public class App {
         EncodingError encodingError=new EncodingError("input.txt");
 
         System.out.println("* Part1: " + encodingError.getPart1(25));
-        System.out.println("* Part2: " + encodingError.getPart2());
+        System.out.println("* Part2: " + encodingError.getPart2(25));
     }
 
 }

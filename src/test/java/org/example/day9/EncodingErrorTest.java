@@ -14,5 +14,7 @@ class EncodingErrorTest {
 
     @Test
     void getPart2() {
+        EncodingError encodingError=new EncodingError("inputTest.txt");
+        assertEquals(62,encodingError.getPart2(5));
     }
 }

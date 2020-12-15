@@ -3,6 +3,7 @@ package org.example.day9;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -60,7 +61,28 @@ public class EncodingError {
         return false;
     }
 
-    public int getPart2() {
+    public long getPart2(int initialLength) {
+        Long toFind = getPart1(initialLength);
+        int pos = list.indexOf(toFind);
+        long sum = 0;
+        long min, max;
+        for (int i = 0; i < pos - 2; i++) {
+            sum = list.get(i);
+            min = sum;
+            max = sum;
+            for (int j = i + 1; j < pos - 1; j++) {
+                long temp = sum + list.get(j);
+                if (temp > toFind) {
+                    break;
+                }
+                sum += list.get(j);
+                min = Math.min(min, list.get(j));
+                max = Math.max(max, list.get(j));
+                if (temp == toFind) {
+                    return min + max;
+                }
+            }
+        }
         return 0;
     }
 }
