@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.day1.ReportRepair;
+import org.example.day10.AdapterArray;
 import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
@@ -66,6 +67,12 @@ public class App {
 
         System.out.println("* Part1: " + encodingError.getPart1(25));
         System.out.println("* Part2: " + encodingError.getPart2(25));
+
+        System.out.println("Day 10:");
+        AdapterArray adapterArray=new AdapterArray("input.txt");
+
+        System.out.println("* Part1: " + adapterArray.getPart1());
+        System.out.println("* Part2: " + adapterArray.getPart2());
     }
 
 }
