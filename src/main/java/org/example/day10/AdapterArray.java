@@ -16,10 +16,30 @@ public class AdapterArray {
     public AdapterArray(String file) {
         list = getInput(file);
         Collections.sort(list);
+        countDif();
+    }
+
+    void countVariants() {
+        int initial = 0;
+        int dif,priv;
+        int count1=0;
+        int count2=0;
+        int count3=0;
+
+        for (Integer integer : list) {
+            dif = integer - initial;
+            if (dif == 1) {
+                count1++;
+            }else if(dif==2){
+            priv=dif;
+        }
+    }
+
+    void countDif() {
         int initial = 0;
 
-        for (int i = 0; i < list.size(); i++) {
-            switch (list.get(i) - initial) {
+        for (Integer integer : list) {
+            switch (integer - initial) {
                 case 1:
                     dif1++;
                     initial++;
@@ -32,10 +52,11 @@ public class AdapterArray {
                     initial += 3;
                     break;
                 default:
-                    throw new IllegalAccessException("To nie powinno się zdarzyć");
+                    throw new IllegalArgumentException("To nie powinno się zdarzyć");
 
             }
         }
+        dir3++;
     }
 
     /**
@@ -61,10 +82,10 @@ public class AdapterArray {
     }
 
     public int getPart1() {
-        return 0;
+        return dif1 * dir3;
     }
 
     public int getPart2() {
-        return 0;
+        return dir3;
     }
 }
