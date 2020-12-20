@@ -15,7 +15,7 @@ class AdapterArrayTest {
     @Test
     void getPart2Small() {
         AdapterArray adapterArray = new AdapterArray("inputTestSmall.txt");
-        assertEquals(5, adapterArray.getPart2());
+        assertEquals(8, adapterArray.getPart2());
     }
 
     @Test
@@ -27,6 +27,6 @@ class AdapterArrayTest {
     @Test
     void getPart2Big() {
         AdapterArray adapterArray = new AdapterArray("inputTestBig.txt");
-        assertEquals(10, adapterArray.getPart2());
+        assertEquals(19208, adapterArray.getPart2());
     }
 }
