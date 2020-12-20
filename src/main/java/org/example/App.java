@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.day1.ReportRepair;
 import org.example.day10.AdapterArray;
+import org.example.day11.SeatingSystem;
 import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
@@ -73,6 +74,12 @@ public class App {
 
         System.out.println("* Part1: " + adapterArray.getPart1());
         System.out.println("* Part2: " + adapterArray.getPart2());
+
+        System.out.println("Day 11:");
+        SeatingSystem seatingSystem=new SeatingSystem("input.txt");
+
+        System.out.println("* Part1: " + seatingSystem.getPart1());
+        System.out.println("* Part2: " + seatingSystem.getPart2());
     }
 
 }
