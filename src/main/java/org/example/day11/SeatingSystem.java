@@ -18,27 +18,40 @@ public class SeatingSystem {
         do {
             List<String> temp = applyRules();
             notTheSame = temp.equals(seats);
-        } while (notTheSame);
+            seats.clear();
+            seats.addAll(temp);
+        } while (!notTheSame);
     }
 
     private List<String> applyRules() {
         List<String> temp = new ArrayList<>();
         for (int i = 0; i < seats.size(); i++) {
+            StringBuilder row = new StringBuilder(seats.get(i));
             for (int j = 0; j < seats.get(i).length(); j++) {
-                StringBuilder row = new StringBuilder(seats.get(i));
                 if (seats.get(i).charAt(j) == '#') {
                     row.setCharAt(j, getState(i, j));
                 }
-                temp.add(row.toString());
             }
+            temp.add(row.toString());
         }
         return temp;
     }
 
     private char getState(int row, int col) {
         int countHash = 0;
-        if ((row - 1) >= 0 && (col - 1) >= 0 && (col + 1) < seats.get(row - 1).length()) {
-            for (int i = col - 1; i < col + 1; i++) {
+        int start, stop;
+        if ((row - 1) >= 0) {
+            if ((col - 1) >= 0) {
+                start = col - 1;
+            } else {
+                start = col;
+            }
+            if ((col + 1) < seats.get(row - 1).length()) {
+                stop = col + 1;
+            } else {
+                stop = col;
+            }
+            for (int i = start; i <= stop; i++) {
                 if (seats.get(row - 1).charAt(i) == '#') {
                     countHash++;
                 }
@@ -50,8 +63,18 @@ public class SeatingSystem {
         if ((col + 1) < seats.get(row).length() && seats.get(row).charAt(col + 1) == '#') {
             countHash++;
         }
-        if ((row + 1) < seats.size() && (col - 1) >= 0 && (col + 1) < seats.get(row + 1).length()) {
-            for (int i = col - 1; i < col + 1; i++) {
+        if ((row + 1) < seats.size()) {
+            if ((col - 1) >= 0) {
+                start = col - 1;
+            } else {
+                start = col;
+            }
+            if ((col + 1) < seats.get(row + 1).length()) {
+                stop = col + 1;
+            } else {
+                stop = col;
+            }
+            for (int i = start; i <= stop; i++) {
                 if (seats.get(row + 1).charAt(i) == '#') {
                     countHash++;
                 }
