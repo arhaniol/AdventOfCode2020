@@ -13,23 +13,26 @@ public class SeatingSystem {
 
     public SeatingSystem(String file) {
         seats = getInput(file);
-        emptyToOccupied();
+//        emptyToOccupied();
+        List<String> temp = applyRules('L');
+        seats.clear();
+        seats.addAll(temp);
         boolean notTheSame;
         do {
-            List<String> temp = occupied4empty();
+            temp = applyRules('#');
             notTheSame = temp.equals(seats);
             seats.clear();
             seats.addAll(temp);
         } while (!notTheSame);
     }
 
-    private List<String> occupied4empty() {
+    private List<String> applyRules(char sign) {
         List<String> temp = new ArrayList<>();
         for (int i = 0; i < seats.size(); i++) {
             StringBuilder row = new StringBuilder(seats.get(i));
             for (int j = 0; j < seats.get(i).length(); j++) {
-                if (seats.get(i).charAt(j) == '#') {
-                    row.setCharAt(j, getNewState(i, j,'#'));
+                if (seats.get(i).charAt(j) == sign) {
+                    row.setCharAt(j, getNewState(i, j, sign));
                 }
             }
             temp.add(row.toString());
@@ -39,70 +42,85 @@ public class SeatingSystem {
 
     private char getNewState(int row, int col, char sign) {
         int countHash = 0;
-        int neighbour=8;
+        int neighbour = 8;
         int start, stop;
         if ((row - 1) >= 0) {
             if ((col - 1) >= 0) {
                 start = col - 1;
             } else {
                 start = col;
-                neighbour-=3;
+                neighbour--;
             }
             if ((col + 1) < seats.get(row - 1).length()) {
                 stop = col + 1;
             } else {
                 stop = col;
+                neighbour--;
             }
             for (int i = start; i <= stop; i++) {
                 if (seats.get(row - 1).charAt(i) == sign) {
                     countHash++;
                 }
             }
-        }else{
-            neighbour-=3;
+        } else {
+            neighbour -= 3;
         }
         if ((col - 1) >= 0 && seats.get(row).charAt(col - 1) == sign) {
             countHash++;
+        } else {
+            neighbour--;
         }
         if ((col + 1) < seats.get(row).length() && seats.get(row).charAt(col + 1) == sign) {
             countHash++;
+        } else {
+            neighbour--;
         }
         if ((row + 1) < seats.size()) {
             if ((col - 1) >= 0) {
                 start = col - 1;
             } else {
                 start = col;
+                neighbour--;
             }
             if ((col + 1) < seats.get(row + 1).length()) {
                 stop = col + 1;
             } else {
                 stop = col;
+                neighbour--;
             }
             for (int i = start; i <= stop; i++) {
                 if (seats.get(row + 1).charAt(i) == sign) {
                     countHash++;
                 }
             }
-        }else {
-            neighbour-=3;
-        }
-        if(sign=='#'){
-        if (countHash > 3) {
-            return 'L';
         } else {
-            return '#';
+            neighbour -= 3;
         }
-        }else {
-            if(countHash==neighbour)
+        if (sign == '#') {
+            if (countHash > 3) {
+                return 'L';
+            } else {
+                return '#';
+            }
+        } else {
+            if (countHash == neighbour) {
+                return '#';
+            } else {
+                return 'L';
+            }
         }
     }
 
     private void emptyToOccupied() {
         List<String> temp = new ArrayList<>();
-        for (String row : seats) {
-            for()
-            row = row.replace('L', '#');
-            temp.add(row);
+        for (int i = 0; i < seats.size(); i++) {
+            StringBuilder row = new StringBuilder(seats.get(i));
+            for (int j = 0; j < seats.get(i).length(); j++) {
+                if (seats.get(i).charAt(j) == 'L') {
+                    row.setCharAt(j, getNewState(i, j, 'L'));
+                }
+            }
+            temp.add(row.toString());
         }
         seats.clear();
         seats.addAll(temp);
