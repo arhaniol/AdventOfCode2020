@@ -13,26 +13,23 @@ public class SeatingSystem {
 
     public SeatingSystem(String file) {
         seats = getInput(file);
-//        emptyToOccupied();
-        List<String> temp = applyRules('L');
-        seats.clear();
-        seats.addAll(temp);
         boolean notTheSame;
         do {
-            temp = applyRules('#');
+            makeOccupied();
+            List<String> temp = applyRules();
             notTheSame = temp.equals(seats);
             seats.clear();
             seats.addAll(temp);
         } while (!notTheSame);
     }
 
-    private List<String> applyRules(char sign) {
+    private List<String> applyRules() {
         List<String> temp = new ArrayList<>();
         for (int i = 0; i < seats.size(); i++) {
             StringBuilder row = new StringBuilder(seats.get(i));
             for (int j = 0; j < seats.get(i).length(); j++) {
-                if (seats.get(i).charAt(j) == sign) {
-                    row.setCharAt(j, getNewState(i, j, sign));
+                if (seats.get(i).charAt(j) == '#') {
+                    row.setCharAt(j, getState(i, j));
                 }
             }
             temp.add(row.toString());
@@ -40,90 +37,134 @@ public class SeatingSystem {
         return temp;
     }
 
-    private char getNewState(int row, int col, char sign) {
+    private char getState(int row, int col) {
         int countHash = 0;
-        int neighbour = 8;
         int start, stop;
         if ((row - 1) >= 0) {
             if ((col - 1) >= 0) {
                 start = col - 1;
             } else {
                 start = col;
-                neighbour--;
             }
             if ((col + 1) < seats.get(row - 1).length()) {
                 stop = col + 1;
             } else {
                 stop = col;
-                neighbour--;
             }
             for (int i = start; i <= stop; i++) {
-                if (seats.get(row - 1).charAt(i) == sign) {
+                if (seats.get(row - 1).charAt(i) == '#') {
                     countHash++;
                 }
             }
-        } else {
-            neighbour -= 3;
         }
-        if ((col - 1) >= 0 && seats.get(row).charAt(col - 1) == sign) {
+        if ((col - 1) >= 0 && seats.get(row).charAt(col - 1) == '#') {
             countHash++;
-        } else {
-            neighbour--;
         }
-        if ((col + 1) < seats.get(row).length() && seats.get(row).charAt(col + 1) == sign) {
+        if ((col + 1) < seats.get(row).length() && seats.get(row).charAt(col + 1) == '#') {
             countHash++;
-        } else {
-            neighbour--;
         }
         if ((row + 1) < seats.size()) {
             if ((col - 1) >= 0) {
                 start = col - 1;
             } else {
                 start = col;
-                neighbour--;
             }
             if ((col + 1) < seats.get(row + 1).length()) {
                 stop = col + 1;
             } else {
                 stop = col;
-                neighbour--;
             }
             for (int i = start; i <= stop; i++) {
-                if (seats.get(row + 1).charAt(i) == sign) {
+                if (seats.get(row + 1).charAt(i) == '#') {
                     countHash++;
                 }
             }
-        } else {
-            neighbour -= 3;
         }
-        if (sign == '#') {
-            if (countHash > 3) {
-                return 'L';
-            } else {
-                return '#';
-            }
+        if (countHash > 3) {
+            return 'L';
         } else {
-            if (countHash == neighbour) {
-                return '#';
-            } else {
-                return 'L';
-            }
+            return '#';
         }
     }
 
-    private void emptyToOccupied() {
+    private void makeOccupied() {
         List<String> temp = new ArrayList<>();
         for (int i = 0; i < seats.size(); i++) {
             StringBuilder row = new StringBuilder(seats.get(i));
             for (int j = 0; j < seats.get(i).length(); j++) {
                 if (seats.get(i).charAt(j) == 'L') {
-                    row.setCharAt(j, getNewState(i, j, 'L'));
+                    int neighbour = 8;
+                    int freeChair = 0;
+                    int startX, stopX, startY, stopY;
+
+                    startY = getStart(i);
+                    stopY = getStop(i, seats.size());
+
+                    if (startY == i) {
+                        neighbour -= 3;
+                    }
+                    if (stopY == i) {
+                        neighbour -= 3;
+                    }
+
+                    startX = getStart(j);
+                    stopX = getStop(j, seats.get(i).length());
+
+                    if (startX == j) {
+                        neighbour -= 3;
+                        if (startX == i) {
+                            neighbour++;
+                        }
+                    }
+                    if (stopX == j) {
+                        neighbour -= 3;
+                        if (startY == i || stopY == (seats.size() - 1)) {
+                            neighbour++;
+                        }
+                    }
+
+                    for (int k = startY; k <= stopY; k++) {
+                        String oldRow = seats.get(k);
+                        for (int l = startX; l <= stopX; l++) {
+                            if (k != i || l != j) {
+                                if (oldRow.charAt(l) == 'L') {
+                                    freeChair++;
+                                }
+                                if (oldRow.charAt(l) == '.') {
+                                    neighbour--;
+                                }
+                            }
+                        }
+                    }
+                    if (freeChair == neighbour) {
+                        row.setCharAt(j, '#');
+                    }
                 }
             }
             temp.add(row.toString());
         }
         seats.clear();
         seats.addAll(temp);
+    }
+
+    private int getStart(int pos) {
+        int start;
+        if ((pos - 1) >= 0) {
+            start = pos - 1;
+        } else {
+            start = pos;
+        }
+        return start;
+    }
+
+    private int getStop(int pos, int limit) {
+        int stop;
+        if ((pos + 1) < limit) {
+            stop = pos + 1;
+        } else {
+            stop = pos;
+        }
+        return stop;
     }
 
     private int countOccupied() {
