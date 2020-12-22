@@ -13,14 +13,6 @@ public class SeatingSystem {
 
     public SeatingSystem(String file) {
         seats = getInput(file);
-        boolean notTheSame;
-        do {
-            makeOccupied();
-            List<String> temp = applyRules();
-            notTheSame = temp.equals(seats);
-            seats.clear();
-            seats.addAll(temp);
-        } while (!notTheSame);
     }
 
     private List<String> applyRules() {
@@ -39,47 +31,22 @@ public class SeatingSystem {
 
     private char getState(int row, int col) {
         int countHash = 0;
-        int start, stop;
-        if ((row - 1) >= 0) {
-            if ((col - 1) >= 0) {
-                start = col - 1;
-            } else {
-                start = col;
-            }
-            if ((col + 1) < seats.get(row - 1).length()) {
-                stop = col + 1;
-            } else {
-                stop = col;
-            }
-            for (int i = start; i <= stop; i++) {
-                if (seats.get(row - 1).charAt(i) == '#') {
-                    countHash++;
+        int startX = getStart(col);
+        int stopX = getStop(col, seats.get(row).length());
+        int startY = getStart(row);
+        int stopY = getStop(row, seats.size());
+
+        for (int k = startY; k <= stopY; k++) {
+            String oldRow = seats.get(k);
+            for (int l = startX; l <= stopX; l++) {
+                if (k != row || l != col) {
+                    if (oldRow.charAt(l) == '#') {
+                        countHash++;
+                    }
                 }
             }
         }
-        if ((col - 1) >= 0 && seats.get(row).charAt(col - 1) == '#') {
-            countHash++;
-        }
-        if ((col + 1) < seats.get(row).length() && seats.get(row).charAt(col + 1) == '#') {
-            countHash++;
-        }
-        if ((row + 1) < seats.size()) {
-            if ((col - 1) >= 0) {
-                start = col - 1;
-            } else {
-                start = col;
-            }
-            if ((col + 1) < seats.get(row + 1).length()) {
-                stop = col + 1;
-            } else {
-                stop = col;
-            }
-            for (int i = start; i <= stop; i++) {
-                if (seats.get(row + 1).charAt(i) == '#') {
-                    countHash++;
-                }
-            }
-        }
+
         if (countHash > 3) {
             return 'L';
         } else {
@@ -112,13 +79,13 @@ public class SeatingSystem {
 
                     if (startX == j) {
                         neighbour -= 3;
-                        if (startX == i) {
+                        if (startY == i || stopY == i) {
                             neighbour++;
                         }
                     }
                     if (stopX == j) {
                         neighbour -= 3;
-                        if (startY == i || stopY == (seats.size() - 1)) {
+                        if (startY == i || stopY == i) {
                             neighbour++;
                         }
                     }
@@ -202,6 +169,14 @@ public class SeatingSystem {
     }
 
     public int getPart1() {
+        boolean notTheSame;
+        do {
+            makeOccupied();
+            List<String> temp = applyRules();
+            notTheSame = temp.equals(seats);
+            seats.clear();
+            seats.addAll(temp);
+        } while (!notTheSame);
         return countOccupied();
     }
 
