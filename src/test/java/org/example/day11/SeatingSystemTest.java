@@ -15,6 +15,6 @@ class SeatingSystemTest {
     @Test
     void getPart2() {
         SeatingSystem seatingSystem=new SeatingSystem("inputTest.txt");
-        assertEquals(-1,seatingSystem.getPart2());
+        assertEquals(26,seatingSystem.getPart2());
     }
 }

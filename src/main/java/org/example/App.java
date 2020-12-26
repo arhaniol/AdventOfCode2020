@@ -79,7 +79,9 @@ public class App {
         SeatingSystem seatingSystem=new SeatingSystem("input.txt");
 
         System.out.println("* Part1: " + seatingSystem.getPart1());
-        System.out.println("* Part2: " + seatingSystem.getPart2());
+
+        SeatingSystem seatingSystem2=new SeatingSystem("input.txt");
+        System.out.println("* Part2: " + seatingSystem2.getPart2());
     }
 
 }
