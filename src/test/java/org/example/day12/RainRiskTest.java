@@ -1,9 +1,8 @@
 package org.example.day12;
 
-import com.sun.imageio.spi.RAFImageInputStreamSpi;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RainRiskTest {
 
