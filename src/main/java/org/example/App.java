@@ -3,6 +3,7 @@ package org.example;
 import org.example.day1.ReportRepair;
 import org.example.day10.AdapterArray;
 import org.example.day11.SeatingSystem;
+import org.example.day12.RainRisk;
 import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
@@ -64,24 +65,30 @@ public class App {
         System.out.println("* Part2: " + handheldHalting.getPart2());
 
         System.out.println("Day 9:");
-        EncodingError encodingError=new EncodingError("input.txt");
+        EncodingError encodingError = new EncodingError("input.txt");
 
         System.out.println("* Part1: " + encodingError.getPart1(25));
         System.out.println("* Part2: " + encodingError.getPart2(25));
 
         System.out.println("Day 10:");
-        AdapterArray adapterArray=new AdapterArray("input.txt");
+        AdapterArray adapterArray = new AdapterArray("input.txt");
 
         System.out.println("* Part1: " + adapterArray.getPart1());
         System.out.println("* Part2: " + adapterArray.getPart2());
 
         System.out.println("Day 11:");
-        SeatingSystem seatingSystem=new SeatingSystem("input.txt");
+        SeatingSystem seatingSystem = new SeatingSystem("input.txt");
 
         System.out.println("* Part1: " + seatingSystem.getPart1());
 
-        SeatingSystem seatingSystem2=new SeatingSystem("input.txt");
+        SeatingSystem seatingSystem2 = new SeatingSystem("input.txt");
         System.out.println("* Part2: " + seatingSystem2.getPart2());
+
+        System.out.println("Day 12:");
+        RainRisk rainRisk = new RainRisk("input.txt");
+
+        System.out.println("* Part1: " + rainRisk.getPart1());
+        System.out.println("* Part2: " + rainRisk.getPart2());
     }
 
 }
