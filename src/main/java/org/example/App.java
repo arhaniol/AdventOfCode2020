@@ -4,6 +4,7 @@ import org.example.day1.ReportRepair;
 import org.example.day10.AdapterArray;
 import org.example.day11.SeatingSystem;
 import org.example.day12.RainRisk;
+import org.example.day13.ShuttleSearch;
 import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
@@ -89,6 +90,13 @@ public class App {
 
         System.out.println("* Part1: " + rainRisk.getPart1());
         System.out.println("* Part2: " + rainRisk.getPart2());
+
+        System.out.println("Day 13:");
+        ShuttleSearch shuttleSearch = new ShuttleSearch("input.txt");
+//        shuttleSearch.setInitTimeStamp(100_000_000_000_000L);
+
+        System.out.println("* Part1: " + shuttleSearch.getPart1());
+        System.out.println("* Part2: " + shuttleSearch.getPart2());
     }
 
 }
