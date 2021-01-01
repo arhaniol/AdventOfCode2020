@@ -93,7 +93,6 @@ public class App {
 
         System.out.println("Day 13:");
         ShuttleSearch shuttleSearch = new ShuttleSearch("input.txt");
-//        shuttleSearch.setInitTimeStamp(100_000_000_000_000L);
 
         System.out.println("* Part1: " + shuttleSearch.getPart1());
         System.out.println("* Part2: " + shuttleSearch.getPart2());

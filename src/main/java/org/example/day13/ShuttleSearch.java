@@ -12,12 +12,8 @@ public class ShuttleSearch {
 
     private int timeStamp;
     private final List<Bus> busList;
-    private long initTimeStamp;
-    private long counter;
-
-    public void setInitTimeStamp(long initTimeStamp) {
-        this.initTimeStamp = initTimeStamp;
-    }
+    private long mod;
+    private int lastI;
 
     public ShuttleSearch(String file) {
         busList = new ArrayList<>();
@@ -73,52 +69,65 @@ public class ShuttleSearch {
 
     public long getPart2() {
 
-        if (initTimeStamp > 100_000_000L) {
-            for (Bus bus : busList) {
-                bus.timeStamp = ((initTimeStamp / bus.number) + 1) * bus.number;
-            }
-        }
-
-        computedTimeStamp(1);
+        Bus first = busList.get(0);
+        Bus last = busList.get(busList.size() - 1);
+        long dif;
+        do {
+            dif = last.timeStamp - first.timeStamp;
+            do {
+                while (dif < last.dif) {
+                    last.timeStamp += last.number;
+                    dif = last.timeStamp - first.timeStamp;
+                }
+                while (dif > last.dif) {
+                    first.timeStamp += first.number;
+                    dif = last.timeStamp - first.timeStamp;
+                }
+            } while (dif != last.dif);
+        } while (!isAllTimeStampOK());
 
         return busList.get(0).timeStamp;
     }
 
-    private boolean computedTimeStamp(int pos) {
-        if (pos < busList.size()) {
-            Bus firstBus = busList.get(0);
-            Bus currentBus = busList.get(pos);
-            long dif = currentBus.timeStamp - firstBus.timeStamp;
-            if (dif == currentBus.dif) {
-                if (computedTimeStamp(pos + 1)) {
-                    dif = currentBus.timeStamp - firstBus.timeStamp;
+    private long a;
+    private long b;
+    private long c;
+    private long d;
+
+    private boolean isAllTimeStampOK() {
+        Bus first = busList.get(0);
+        Bus last = busList.get(busList.size() - 1);
+        for (int i = 1; i < busList.size() - 1; i++) {
+            Bus curr = busList.get(i);
+            if ((first.timeStamp + curr.dif) % curr.number != 0) {
+                if (a == 0) {
+                    a = first.timeStamp;
+                    first.timeStamp += first.number;
+                    last.timeStamp += last.number;
                 } else {
-                    return false;
+                    if (b != a) {
+                        mod = first.timeStamp - a;
+                        b = a;
+                    }
+                    first.timeStamp += mod;
+                    last.timeStamp += mod;
                 }
-            }
-            while (dif != currentBus.dif) {
-                counter++;
-                if ((counter % 1_000_000_000) == 0) {
-                    System.out.println(firstBus.timeStamp);
-                }
-                while (dif < currentBus.dif) {
-                    currentBus.timeStamp += currentBus.number;
-                    dif = currentBus.timeStamp - firstBus.timeStamp;
-                }
-                while (dif > currentBus.dif) {
-                    firstBus.timeStamp += firstBus.number;
-                    dif = currentBus.timeStamp - firstBus.timeStamp;
-                }
-                if (dif == currentBus.dif) {
-                    if (computedTimeStamp(pos + 1)) {
-                        dif = currentBus.timeStamp - firstBus.timeStamp;
+                return false;
+            } else {
+                curr.timeStamp = first.timeStamp + curr.dif;
+                if (lastI < i) {
+                    c = first.timeStamp;
+                    lastI = i;
+                    d = 0;
+                } else {
+                    if (lastI == i && d == 0) {
+                        mod = first.timeStamp - c;
+                        d = c;
                     }
                 }
             }
-            return true;
-        } else {
-            return false;
         }
+        return true;
     }
 
     class Bus {
