@@ -5,6 +5,7 @@ import org.example.day10.AdapterArray;
 import org.example.day11.SeatingSystem;
 import org.example.day12.RainRisk;
 import org.example.day13.ShuttleSearch;
+import org.example.day14.DockingData;
 import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
@@ -96,6 +97,12 @@ public class App {
 
         System.out.println("* Part1: " + shuttleSearch.getPart1());
         System.out.println("* Part2: " + shuttleSearch.getPart2());
+
+        System.out.println("Day 14:");
+        DockingData dockingData = new DockingData("input.txt");
+
+        System.out.println("* Part1: " + dockingData.getPart1());
+        System.out.println("* Part2: " + dockingData.getPart2());
     }
 
 }
