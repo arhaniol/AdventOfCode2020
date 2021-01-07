@@ -6,6 +6,7 @@ import org.example.day11.SeatingSystem;
 import org.example.day12.RainRisk;
 import org.example.day13.ShuttleSearch;
 import org.example.day14.DockingData;
+import org.example.day15.RambunctiousRecitation;
 import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
@@ -103,6 +104,12 @@ public class App {
 
         System.out.println("* Part1: " + dockingData.getPart1());
         System.out.println("* Part2: " + dockingData.getPart2());
+
+        System.out.println("Day 15:");
+        RambunctiousRecitation rambunctiousRecitation = new RambunctiousRecitation("input.txt");
+
+        System.out.println("* Part1: " + rambunctiousRecitation.getPart1(2020));
+        System.out.println("* Part2: " + rambunctiousRecitation.getPart2(30000000));
     }
 
 }
