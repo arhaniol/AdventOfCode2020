@@ -9,6 +9,7 @@ import org.example.day14.DockingData;
 import org.example.day15.RambunctiousRecitation;
 import org.example.day16.TicketTranslation;
 import org.example.day17.ConwayCubes;
+import org.example.day18.OperationOrder;
 import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
@@ -122,8 +123,14 @@ public class App {
         System.out.println("Day 17:");
         ConwayCubes conwayCubes = new ConwayCubes("input.txt");
 
-        System.out.println("* Part1: " + conwayCubes.getPart1());
+        System.out.println("* Part1: " + conwayCubes.getPart1(6));
         System.out.println("* Part2: " + conwayCubes.getPart2());
+
+        System.out.println("Day 18:");
+        OperationOrder operationOrder = new OperationOrder("input.txt");
+
+        System.out.println("* Part1: " + operationOrder.getPart1());
+        System.out.println("* Part2: " + operationOrder.getPart2());
     }
 
 }
