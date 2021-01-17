@@ -10,6 +10,7 @@ import org.example.day15.RambunctiousRecitation;
 import org.example.day16.TicketTranslation;
 import org.example.day17.ConwayCubes;
 import org.example.day18.OperationOrder;
+import org.example.day19.MonsterMessages;
 import org.example.day2.PasswordPhilosophy;
 import org.example.day3.TobogganTrajectory;
 import org.example.day4.PassportProcessing;
@@ -131,6 +132,12 @@ public class App {
 
         System.out.println("* Part1: " + operationOrder.getPart1());
         System.out.println("* Part2: " + operationOrder.getPart2());
+
+        System.out.println("Day 19:");
+        MonsterMessages monsterMessages = new MonsterMessages("input.txt");
+
+        System.out.println("* Part1: " + monsterMessages.getPart1());
+        System.out.println("* Part2: " + monsterMessages.getPart2());
     }
 
 }
