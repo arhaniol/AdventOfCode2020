@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MonsterMessages {
-    List<String> receivedMessage;
-    Map<Integer, String> rules;
-    List<StringBuilder> correctAnswers;
+    private List<String> receivedMessage;
+    private Map<Integer, String> rules;
+    private List<StringBuilder> correctAnswers;
 
     public MonsterMessages(String file) {
         getInput(file);
@@ -37,6 +37,11 @@ public class MonsterMessages {
 
         rules = Stream.of(input[0].split("\r\n")).map(s -> s.split(": ")).collect(Collectors.toMap(s -> Integer.parseInt(s[0]), s -> s[1]));
         receivedMessage = Stream.of(input[1].split("\r\n")).collect(Collectors.toList());
+    }
+
+    public int build(){
+        buildAnswersList();
+        return correctAnswers.size();
     }
 
     public int getPart1() {
@@ -76,11 +81,11 @@ public class MonsterMessages {
             return;
         }
         if (rule.contains(" | ")) {
-            String[] subRules = rule.split(" | ");
-            getAnswer(rules.get(subRules[0]));
+            String[] subRules = rule.split(" \\| ");
+            getAnswer(subRules[0]);
             for (int i = 1; i < subRules.length; i++) {
                 correctAnswers.add(correctAnswers.get(0));
-                getAnswer(rules.get(subRules[i]));
+                getAnswer(subRules[i]);
             }
             return;
         }
@@ -89,8 +94,8 @@ public class MonsterMessages {
             for (int subRule : subRules) {
                 getAnswer(rules.get(subRule));
             }
-        } else {
-            getAnswer(rules.get(Integer.parseInt(rule)));
+//        } else {
+//            getAnswer(rules.get(Integer.parseInt(rule)));
         }
     }
 
